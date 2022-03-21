@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function BTC(){
+        fetch('https://api.upbit.com/v1/ticker?markets=KRW-BTC')
+        .then(function(response) {
+        return response.json();
+        })
+        .then(function(myJson) {
+        document.write(JSON.stringify(myJson));
+    });
+    }
+    </script>
+
+    <input type="button" value="click!" onclick="BTC()">
+</body>
+</html>
