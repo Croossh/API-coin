@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        function getcoin() {
+  
+        const coinNodeList = document.getElementsByName('coin');
+
+        coinNodeList.forEach((node) => {
+            if(node.checked){
+            document.getElementById('coinresult').innerText = node.value;
+            }
+        })
+
+    }
+    function getinfo() {
+        
+        const infoNodeList = document.getElementsByName('info');
+        
+        infoNodeList.forEach((node) => {
+            if(node.checked){
+            document.getElementById('inforesult').innerText = node.value;
+            }
+        }) 
+    }
+    </script>
+</head>
+<body>
+    <form>
+        - 코인 종류<br>
+        <input type="radio" name="coin" value="KRW-BTC" checked> 비트코인
+        <input type="radio" name="coin" value="KRW-ETH"> 이더리움
+        <input type="radio" name="coin" value="BTC-XRP"> 리플
+        <input type="radio" name="coin" value="BTC-DOGE"> 도지코인
+        <br>
+        - 선택 정보<br>
+        <input type="radio" name="info" value="market_name" checked>market_name
+        <input type="radio" name="info" value="trade_price">trade_price
+        <input type="radio" name="info" value="trade_volume">trade_volume
+        <input type="radio" name="info" value="change">change
+        <br>
+    </form>
+    <input type="button" value="확인" onclick="getcoin(); getinfo();"> 
+    <div id="coinresult"></div>
+    <div id="inforesult"></div>
+</body>
+</html>
