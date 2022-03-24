@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        function getcall() {
+
+            const coinNodeList = document.getElementsByName('coin');
+            const infoNodeList = document.getElementsByName('info');
+            
+            let coinName
+            coinNodeList.forEach((node) => {
+                if(node.checked){
+                    coinName = node.value;
+                }
+            })
+
+            let information;
+            infoNodeList.forEach((node) => {
+                if(node.checked){
+                    information = node.value;
+                }
+            })
+            
+                    fetch("https://api.upbit.com/v1/ticker?markets="+coinName)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(myJson) {
+                        document.getElementById('result').innerText 
+                        = myJson[0][information];
+                    });
+
+                
+            
+        }
+    </script>
+</head>
+<body>
+    <form>
+        - 코인 종류<br>
+        <input type="radio" name="coin" value="KRW-BTC" checked> 비트코인
+        <input type="radio" name="coin" value="KRW-ETH"> 이더리움
+        <input type="radio" name="coin" value="BTC-XRP"> 리플
+        <input type="radio" name="coin" value="BTC-DOGE"> 도지코인
+        <br>
+        - 선택 정보<br>
+        <input type="radio" name="info" value="market" checked>market
+        <input type="radio" name="info" value="trade_price">trade_price
+        <input type="radio" name="info" value="trade_volume">trade_volume
+        <input type="radio" name="info" value="change">change
+        <br>
+    </form>
+    <input type="button" value="확인" onclick="getcall();"> 
+
+    <div id="result">
+    </div>
+</body>
+</html>
