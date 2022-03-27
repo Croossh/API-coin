@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script>
+        let z = [];
+        let x = [];
+        let c = [];
+        async function get(){
+            for(i = 0; i < 7; i++){
+                let obj = {};
+                await fetch('https://api.upbit.com/v1/ticker?markets=KRW-BTC')
+                .then(a => a.json())
+                .then(a => obj = a[0].trade_price);
+                z.push(obj)
+                i
+            }
+            for(y = 0; y < 7; y++){
+                let obj = {};
+                await fetch('https://api.upbit.com/v1/ticker?markets=KRW-ETH')
+                .then(a => a.json())
+                .then(a => obj = a[0].trade_price);
+                x.push(obj)
+                y
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="call" onclick="get()">
+    <input type="button" value="set" onclick="start()">
+    <canvas id="line-chart" width="400" height="250"></canvas>
+    <canvas id="line-chart2" width="400" height="250"></canvas>
+    <script>
+        function start(){
+            new Chart(document.getElementById("line-chart"), {
+                type: 'line',
+                data: {
+                    labels: [1,2,3,4,5,6,7],
+                    datasets: [{ 
+                        data: z,
+                        label: "비트코인",
+                        borderColor: "#3e95cd",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    responsive: false,
+                    title: {
+                    display: true,
+                    text: '비트코인'
+                    }
+                }
+                });
+                new Chart(document.getElementById("line-chart2"), {
+                type: 'line',
+                data: {
+                    labels: [1,2,3,4,5,6,7],
+                    datasets: [{ 
+                        data: x,
+                        label: "이더리움",
+                        borderColor: "#3e95cd",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    responsive: false,
+                    title: {
+                    display: true,
+                    text: '이더리움'
+                    }
+                }
+                });
+        }
+    </script>
+
+</body>
+</html>
